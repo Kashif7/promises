@@ -9,12 +9,36 @@ function getFilmTitles(films) {
     .join('\n');
 }
 
+// using the rejection callback in then
+function apiCall1() {
+  fetch(`${API_URL}/films`)
+    .then(() =>
+      Promise.reject(Error('Invalid JSON')).then((films) => {
+        const filmTitles = getFilmTitles(films);
+
+        output.innerText = filmTitles;
+      })
+    )
+    .then(undefined, (error) => {
+      console.warn(error);
+    });
+}
+
+//  using catch
+function apiCall2() {
+  fetch(`${API_URL}/films`)
+    .then((response) =>
+      response.json().then((films) => {
+        const filmTitles = getFilmTitles(films);
+
+        output.innerText = filmTitles;
+      })
+    )
+    .catch((error) => {
+      console.warn(error);
+    });
+}
+
 output.innerText = 'Loading ...';
 
-fetch(`${API_URL}/films`)
-  .then((response) => response.json())
-  .then((films) => {
-    const filmTitles = getFilmTitles(films);
-
-    output.innerText = filmTitles;
-  });
+apiCall2();
