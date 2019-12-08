@@ -27,15 +27,18 @@ function apiCall1() {
 //  using catch
 function apiCall2() {
   fetch(`${API_URL}/films`)
-    .then((response) =>
-      response.json().then((films) => {
+    .then((response) => {
+      if (!response.ok) throw Error('Unsuccessful Response');
+      return response.json().then((films) => {
         const filmTitles = getFilmTitles(films);
 
         output.innerText = filmTitles;
-      })
-    )
+      });
+    })
     .catch((error) => {
       console.warn(error);
+
+      output.innerText = error.message;
     });
 }
 
