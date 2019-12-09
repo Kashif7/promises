@@ -29,7 +29,7 @@ function apiCall1() {
 function apiCall2() {
   fetch(`${API_URL}/films`)
     .then((response) => {
-      if (!response.ok) throw Error('Unsuccessful Response');
+      if (!response.ok) return Promise.reject(Error('Unsuccessful Response'));
       return response.json().then((films) => {
         const filmTitles = getFilmTitles(films);
 
@@ -40,12 +40,12 @@ function apiCall2() {
       console.warn(error);
 
       output.innerText = error.message;
-    }).finally(() => {
-      spinner.remove();
     })
+    .finally(() => {
+      spinner.remove();
+    });
 }
 
 output.innerText = 'Loading ...';
 
 apiCall2();
-
