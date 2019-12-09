@@ -1,6 +1,7 @@
 const API_URL = 'https://starwars.egghead.training';
 
 const output = document.querySelector('#output');
+const spinner = document.querySelector('#spinner');
 
 function getFilmTitles(films) {
   return films
@@ -39,9 +40,12 @@ function apiCall2() {
       console.warn(error);
 
       output.innerText = error.message;
-    });
+    }).finally(() => {
+      spinner.remove();
+    })
 }
 
 output.innerText = 'Loading ...';
 
 apiCall2();
+
