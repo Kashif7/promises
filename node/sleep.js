@@ -7,16 +7,16 @@ function sleep(ms) {
 }
 
 // usage example
-console.log('start');
+// console.log('start');
 
-sleep(1000)
-  .then(() => {
-    console.log(' one sec passed');
+// sleep(1000)
+//   .then(() => {
+//     console.log(' one sec passed');
 
-    return sleep(1000);
-  })
-  .then(() => console.log('two sec passed'))
-  .catch((error) => console.error(error));
+//     return sleep(1000);
+//   })
+//   .then(() => console.log('two sec passed'))
+//   .catch((error) => console.error(error));
 
 module.exports = {
   sleep
